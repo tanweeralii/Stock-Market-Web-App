@@ -122,7 +122,7 @@ export class DetailsComponent implements OnInit {
 
 
   // change this
-  this.http.get ('http://apcscihw7.us-east-1.elasticbeanstalk.com/stockdetails?keyword='+this.ticker).subscribe ((dataobj) => {
+  this.http.get ('http://localhost:3000/stockdetails?keyword='+this.ticker).subscribe ((dataobj) => {
 
     // this.stockService.updateStockDetails (dataobj['ticker'], dataobj['companyName'], dataobj['exchangeCode'], dataobj['startDate'], dataobj['description']);
 
@@ -160,7 +160,7 @@ export class DetailsComponent implements OnInit {
 
 // first time
 
-this.innerSubscription =   this.http.get ('http://apcscihw7.us-east-1.elasticbeanstalk.com/summary?keyword='+this.ticker).subscribe ((dataobj) => {
+this.innerSubscription =   this.http.get ('http://localhost:3000/summary?keyword='+this.ticker).subscribe ((dataobj) => {
 
 
   this.isLoading = false;
@@ -183,7 +183,7 @@ this.innerSubscription =   this.http.get ('http://apcscihw7.us-east-1.elasticbea
       this.bidPrice = dataobj['bidPrice'];
       this.bidSize = dataobj ['bidSize'];
 
-    this.chartSubscription = this.http.get('http://apcscihw7.us-east-1.elasticbeanstalk.com/daily?keyword='+this.ticker+'&startDate='+this.marketClosed).subscribe((data) =>{
+    this.chartSubscription = this.http.get('http://localhost:3000/daily?keyword='+this.ticker+'&startDate='+this.marketClosed).subscribe((data) =>{
 
     for (var indi in data)
     {
@@ -410,7 +410,7 @@ this.outerSubscription =  interval (15000).subscribe (count => {
 
 
   // change this
-this.innerSubscription =   this.http.get ('http://apcscihw7.us-east-1.elasticbeanstalk.com/summary?keyword='+this.ticker).subscribe ((dataobj) => {
+this.innerSubscription =   this.http.get ('http://localhost:3000/summary?keyword='+this.ticker).subscribe ((dataobj) => {
 
 
 
@@ -586,7 +586,7 @@ this.getNewsData();
 
 getNewsData()
 {
-        const url = "http://apcscihw7.us-east-1.elasticbeanstalk.com/news?keyword="+ this.ticker;
+        const url = "http://localhost:3000/news?keyword="+ this.ticker;
         this.http.get(url).subscribe((data)=> {
         this.newsLength =0;
         for (var indi in data)

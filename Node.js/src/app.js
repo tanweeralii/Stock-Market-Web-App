@@ -22,7 +22,7 @@ app.get ('/autocomplete', (req, res) =>{
 
     console.log ("I got invoked ..");    
     var keyw = req.query.keyword
-    const urlAutocomplete = 'https://api.tiingo.com/tiingo/utilities/search?query='+keyw+'&token=dba09041d3f74d6661a2e620087813c35682f331'
+    const urlAutocomplete = 'https://api.tiingo.com/tiingo/utilities/search?query='+keyw+'&token=ee60af50854bdc261fe835a6cdd521cacdd6027d'
     fetch (urlAutocomplete, {method: 'GET',mode: 'no-cors'}).then((response) =>  {
         response.json().then ((data) => {
              res.send (data);  
@@ -36,7 +36,7 @@ app.get ('/autocomplete', (req, res) =>{
 app.get ('/stockdetails', (req, res) =>{
     
     var keyw = req.query.keyword
-    const urlStockDetails = 'https://api.tiingo.com/tiingo/daily/'+keyw+'?token=dba09041d3f74d6661a2e620087813c35682f331'
+    const urlStockDetails = 'https://api.tiingo.com/tiingo/daily/'+keyw+'?token=ee60af50854bdc261fe835a6cdd521cacdd6027d'
     fetch (urlStockDetails).then((response) =>  {
         response.json().then ((data) => {
             var dataobj ={}        
@@ -59,15 +59,17 @@ app.get ('/stockdetails', (req, res) =>{
 app.get ('/summary', (req, res) =>{
 
     var keyw = req.query.keyword
-    const urlSummary = 'https://api.tiingo.com/iex?tickers='+keyw+'&token=dba09041d3f74d6661a2e620087813c35682f331';
+    const urlSummary = 'https://api.tiingo.com/iex?tickers='+keyw+'&token=ee60af50854bdc261fe835a6cdd521cacdd6027d';
     //const urlStockDetails = 'https://api.tiingo.com/tiingo/daily/AAPL?token=dba09041d3f74d6661a2e620087813c35682f331'
     fetch (urlSummary).then((response) =>  {
         response.json().then ((data) => {
             
 
             dataobj = {}   
-            data = data[0];      J
-            dataobj ['lastPrice'] = data['last'].toFixed(2);
+            data = data[0];
+            if(data['last']!=null){
+                dataobj ['lastPrice'] = data['last'].toFixed(2);
+            }
             dataobj['prevClose'] = data['prevClose'].toFixed(2);
             dataobj['change'] = dataobj['lastPrice'] - dataobj['prevClose'];
             dataobj['change'] = dataobj['change'].toFixed(2);
@@ -253,7 +255,7 @@ app.get ('/news', (req, res) =>{
 app.get ('/charts', (req, res) =>{
 
     
-    const urlCharts = 'https://api.tiingo.com/iex/AAPL/prices?startDate=2019-09-10&resampleFreq=4min&token=dba09041d3f74d6661a2e620087813c35682f331'
+    const urlCharts = 'https://api.tiingo.com/iex/AAPL/prices?startDate=2019-09-10&resampleFreq=4min&token=ee60af50854bdc261fe835a6cdd521cacdd6027d'
 
     fetch (urlCharts).then((response) =>  {
         response.json().then ((data) => {    
@@ -291,7 +293,7 @@ app.get ('/history', (req, res) =>{
     var dater = yr +'-'+ newmnth+'-'+ newdy;
     console.log ('the date I am sending is '+ dater);
 
-    const urlCharts = 'https://api.tiingo.com/tiingo/daily/'+keyw+'/prices?startDate='+dater+'&token=dba09041d3f74d6661a2e620087813c35682f331'
+    const urlCharts = 'https://api.tiingo.com/tiingo/daily/'+keyw+'/prices?startDate='+dater+'&token=ee60af50854bdc261fe835a6cdd521cacdd6027d'
     fetch (urlCharts).then((response) =>  {
         response.json().then ((data) => {
         var counter =0;
@@ -322,7 +324,7 @@ app.get ('/daily', (req, res) =>{
    //console.log ('######### INSIDE daily #########')
   // console.log ('keyword is '+ keyw);
   // console.log ('startDate is '+ startDate);
-   const urlCharts = 'https://api.tiingo.com/iex/'+keyw+'/prices?startDate='+startDate+'&resampleFreq=4min&token=dba09041d3f74d6661a2e620087813c35682f331'
+   const urlCharts = 'https://api.tiingo.com/iex/'+keyw+'/prices?startDate='+startDate+'&resampleFreq=4min&token=ee60af50854bdc261fe835a6cdd521cacdd6027d'
     
     // dba09041d3f74d6661a2e620087813c35682f331
     fetch (urlCharts).then((response) =>  {
@@ -334,13 +336,13 @@ app.get ('/daily', (req, res) =>{
 
 app.get ('/latest', (req, res) =>{
 
-    const urlCharts = 'https://api.tiingo.com/iex?tickers=AAPL&token=dba09041d3f74d6661a2e620087813c35682f331'
+    const urlCharts = 'https://api.tiingo.com/iex?tickers=AAPL&token=ee60af50854bdc261fe835a6cdd521cacdd6027d'
     // dba09041d3f74d6661a2e620087813c35682f331
     var datee = new Date ('2020-11-04T21:00:00+00:00');   
-    res.send ('_|_');    
+    //res.send ('_|_');    
     fetch (urlCharts).then((response) =>  {
         response.json().then ((data) => {    
-            //console.log(data);
+            console.log(data);
             //console.log (typeof data);
             console.log (typeof data[0]['timestamp']);
             //console.log (data[0]['timestamp']);
@@ -365,9 +367,11 @@ app.get ('/latest', (req, res) =>{
 
 
 
-app.listen (8080, () => {
+app.listen (3000, () => {
     console.log ('Server is upon port 3000')
 })
+
+//apcscihw7.us-east-1.elasticbeanstalk.com
 
 
 

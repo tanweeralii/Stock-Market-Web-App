@@ -38,7 +38,7 @@ export class WatchlistdisplayComponent implements OnInit {
 
 
           // change this
-          this.http.get('http://apcscihw7.us-east-1.elasticbeanstalk.com/summary?keyword='+tick).subscribe ((data) => {
+          this.http.get('http://localhost:3000/summary?keyword='+tick).subscribe ((data) => {
             var datab = {};
 
 
@@ -83,7 +83,7 @@ deleteElement (ticke) {
       var tick = this.watchListItems[+indx]['ticker'];
 
       // change this
-      this.http.get('http://apcscihw7.us-east-1.elasticbeanstalk.com/summary?keyword='+tick).subscribe ((data) =>{
+      this.http.get('http://localhost:3000/summary?keyword='+tick).subscribe ((data) =>{
 
         this.watchListItems[+indx]['lastPrice'] = data['lastPrice'];
         this.watchListItems[+indx]['change'] = data['change']
